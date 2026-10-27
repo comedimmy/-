@@ -1,4 +1,4 @@
-## 第一頁
+<img width="1106" height="146" alt="image" src="https://github.com/user-attachments/assets/64608809-b512-478a-83db-dc4fd7ed9d36" />## 第一頁
 大家好，我是吳易軒。今天我要向大家報告的主題是「即時道路損害偵測：方法與資料集的全面性文獻綜述」。這份報告主要回顧近年在車載與邊緣端運算中，電腦視覺如何應用於道路缺陷辨識的最新技術發展。
 
 Hello everyone. Today, I will presenting on the topic: "Real-Time Road Damage Detection: A Comprehensive Survey of Methodologies and Datasets." In this presentation, I will walk through the recent advancements in computer vision applied to road defect detection.
@@ -54,9 +54,9 @@ Finally, we have FPS , which measures inference latency to ensure the architectu
 下方的整理表格清楚點出兩者的核心差異：Two-stage 精準度高但推論過慢，通常無法用於即時車載；而 One-stage 具備推論快速、輕量化的特性，更適合即時系統部署。
 
 In modern object detection, models are broadly divided into two paradigms: one-stage and two-stage detectors.
-On the right, we have Two-Stage Detectors, exemplified by Faster R-CNN. It utilizes a Region Proposal Network (RPN) to suggest potential bounding boxes first, followed by feature pooling and refinement. While this separation grants exceptional localization accuracy, it creates a heavy computational bottleneck.
-In contrast, One-Stage Detectors—such as SSD and YOLO on the left—treat detection as a straightforward regression problem. They skip the proposal generation and predict bounding box coordinates, confidence scores, and class probabilities simultaneously in a single forward pass.
-As summarized in the bottom table, while two-stage models excel in precision, their complexity makes them impractical for real-time safety. One-stage models offer the lightweight efficiency necessary for vehicular deployment.
+On the right, we have Two-Stage Detectors, like Faster R-CNN. It use a Region Proposal Network (RPN) to suggest potential bounding boxes first, followed by feature pooling and refinement. While this separation grants exceptional localization accuracy, it creates a heavy computational bottleneck.
+In contrast, One-Stage Detectors,such as SSD and YOLO. They skip the proposal generation and predict bounding box coordinates, confidence scores, and class probabilities at the same time in a single forward pass.
+the author was summarized them in the bottom table, while two-stage models excel in precision, their complexity makes them impractical for real-time safety. One-stage models offer the lightweight efficiency necessary for vehicular deployment.
 
 ## 第八頁
 在了解架構概念後，第 8 頁我們直接看這兩大流派在標準公開資料集上的實證數據。
@@ -75,9 +75,9 @@ YOLO 將輸入影像劃分成網格單元（Grid cells）。當道路缺陷的�
 請看右側的標籤向量結構：$P_c$ 代表該格是否包含物件（0 代表純路面，1 代表有缺陷）；接著是邊界框的中心座標 $(B_x, B_y)$ 以及長寬尺寸 $(B_w, B_h)$；最後則是四種標準損害類別的 One-hot 標籤：D00 代表縱向裂縫、D10 代表橫向裂縫、D20 代表龜裂（或稱地圖狀裂縫），D40 則是坑洞。
 從早期依賴預設 Anchor Boxes 到近年導入 Anchor-Free 與路徑聚合網路（PAN），YOLO 不斷強化多尺度特徵融合能力，即使在 200 FPS 以上的超高速推論下，依然能精確鎖定這些微小的損壞。
 
-On Slide 9, we take a closer look at how YOLO interprets road damage through its output tensor.
+this slide focus on how YOLO interprets road damage through its output tensor.
 YOLO divides the input image into a grid of cells. If the center of a road defect falls into a specific grid, that cell is responsible for detecting it.
-As shown in the label structure on the right: $P_c$ indicates object existence—0 for normal asphalt and 1 for damage. This is followed by the normalized center coordinates $(B_x, B_y)$ and bounding box dimensions $(B_w, B_h)$. Finally, we have the class probabilities corresponding to standard road damage definitions: D00 for longitudinal cracks, D10 for transverse cracks, D20 for alligator cracking, and D40 for potholes.
+As shown in the label structure,Pc indicates object existence,0 for normal road and 1 for damage. This is followed by the normalized center coordinates (Bx, By) and bounding box dimensions (Bw, Bh). Finally, we have the class probabilities corresponding to standard road damage definitions: D00 for longitudinal cracks, D10 for transverse cracks, D20 for alligator cracking, and D40 for potholes.
 By evolving from rigid anchor boxes to anchor-free heads and Path Aggregation Networks (PAN), modern YOLO architectures excel at capturing multi-scale defects while maintaining processing speeds well above 200 FPS. 
 
 ## 第十頁
@@ -85,8 +85,8 @@ By evolving from rigid anchor boxes to anchor-free heads and Path Aggregation Ne
 從早期 YOLOv3 採用 Darknet-53，mAP 僅有約 33% 且只有 20 FPS，到中期的 YOLOv5 與 YOLOv8，透過引入動態 Anchor、Mosaic 資料增強、C2F 以及 SPPF 特徵金字塔模組，mAP 突破了 50%，推論速度更大幅攀升至數百 FPS。
 到了近期的 YOLOv10、v11 與 v12，架構進一步導入空間與通道解耦、C3k2/C2PSA 區塊，以及 RepVGG 式的結構重參數化與自適應標籤分配。可以看到 YOLOv12m 在僅約 20M 的參數量下，達到了 52.5% 的 mAP 與超過 200 FPS 的表現，為低延遲的邊緣端車載偵測奠定了扎實基礎。
 
-Moving to Slide 10, we observe the evolutionary leap across the YOLO family architectures.
-Starting from YOLOv3 with Darknet-53, which yielded an mAP of 33% at 20 FPS, intermediate models like YOLOv5 and YOLOv8 introduced dynamic anchors, Mosaic data augmentation, C2F modules, and SPPF pooling layers, pushing mAP past 50% while scaling frame rates to hundreds of FPS.
+we observe the evolutionary leap across the YOLO family architectures.
+Starting from YOLOv3 with Darknet-53, which Achieved 33% mAP at 20 FPS , intermediate models like YOLOv5 and YOLOv8 introduced dynamic anchors, Mosaic data augmentation, C2F modules, and SPPF pooling layers, pushing mAP past 50% while scaling frame rates to hundreds of FPS.
 In recent releases—namely YOLOv10, v11, and v12—the designs leverage rank-guided spatial-channel decoupling, C3k2 and C2PSA blocks, and RepVGG-style re-parameterization with adaptive label assignment. As a result, YOLOv12m achieves an mAP of 52.5% at 206 FPS with only 20.2 million parameters, providing a robust baseline for low-latency automotive edge deployment.
 
 ## 第十一頁
@@ -108,8 +108,8 @@ The overall impact is that these modules suppress complex asphalt background noi
 然而，預訓練的 YOLOv5x 達到了 74.3% 的 F1-score，而引入座標注意力模組的 YOLOv7 + CA 更是達到了 74.1%。
 這項數據直接證明：單一 YOLO 模型只要整合輕量注意力機制，就能在維持 ADAS 所需的即時高影格率下，達到逼近多模型整合架構的精準度。
 
-On Slide 12, we validate these improvements using official competition results from the Crowdsensing-based Road Damage Detection Challenge (CRDDC 2022).
-Top accuracy was achieved by complex Ensemble methods—such as combining Faster R-CNN with Swin Transformer and Deformable ROI—yielding an F1-score of 77%. However, such heavy ensembles are computationally prohibitive for in-vehicle execution.
+On this Slide , we validate these improvements using official competition results from the Crowdsensing-based Road Damage Detection Challenge (CRDDC 2022).
+Top accuracy was achieved by complex Ensemble methods,combining Faster R-CNN with Swin Transformer and Deformable ROI—yielding ,Its F1-score reaches 77%. However, such heavy ensembles are computationally prohibitive for in-vehicle execution.
 In contrast, pre-trained YOLOv5x achieved a 74.3% F1-score, while YOLOv7 integrated with Coordinate Attention achieved 74.1%.
 This demonstrates that a single YOLO variant augmented with lightweight attention can achieve near-ensemble precision while strictly preserving the real-time frame rates required by ADAS.
 
@@ -122,8 +122,8 @@ This demonstrates that a single YOLO variant augmented with lightweight attentio
 其次是「多感測器融合」，將單純的光學相機與光達（LiDAR）、毫米波雷達及熱感應器結合，建立具備三維空間感知的防護網。
 最後是「損傷嚴重度分級」，研究不應僅停留在二元偵測，更需邁向嚴重程度的精細評估，才能進一步支援動態車輛避障與養護通報排程。
 
-Finally, Slide 13 presents our Conclusion and Future Directions.
-On the left, we conclude our survey findings:
+the final slide is Conclusion & Future Directions
+author conclude our survey findings:
 First, regarding our Architecture Verdict, single-stage YOLO models integrated with lightweight attention mechanisms offer the optimal trade-off between localization precision and high-speed throughput for advancing ADAS.
 Second, on Dataset Status, while benchmarks like RDD have accelerated progress, critical limitations remain, specifically severe class imbalance (the scarcity of potholes) and a shortage of adverse-weather annotations.   To address these gaps, three future directions are outlined on the right:
 First, Environmental Robustness, which can be tackled through weather-simulation data augmentation, HDR imaging, and infrared vision.
