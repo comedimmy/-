@@ -1,4 +1,4 @@
-<img width="1106" height="146" alt="image" src="https://github.com/user-attachments/assets/64608809-b512-478a-83db-dc4fd7ed9d36" />## 第一頁
+## 第一頁
 大家好，我是吳易軒。今天我要向大家報告的主題是「即時道路損害偵測：方法與資料集的全面性文獻綜述」。這份報告主要回顧近年在車載與邊緣端運算中，電腦視覺如何應用於道路缺陷辨識的最新技術發展。
 
 Hello everyone. Today, I will presenting on the topic: "Real-Time Road Damage Detection: A Comprehensive Survey of Methodologies and Datasets." In this presentation, I will walk through the recent advancements in computer vision applied to road defect detection.
