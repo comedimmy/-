@@ -1,7 +1,7 @@
 ## 第一頁
 大家好，我是吳易軒。今天我要向大家報告的主題是「即時道路損害偵測：方法與資料集的全面性文獻綜述」。這份報告主要回顧近年在車載與邊緣端運算中，電腦視覺如何應用於道路缺陷辨識的最新技術發展。
 
-Good morning, everyone. My name is Yi-Xuan Wu. Today, I will be presenting on the topic: "Real-Time Road Damage Detection: A Comprehensive Survey of Methodologies and Datasets." In this presentation, we will walk through the recent advancements in computer vision applied to road defect detection, especially in vehicular and edge-computing environments.
+Hello everyone. Today, I will presenting on the topic: "Real-Time Road Damage Detection: A Comprehensive Survey of Methodologies and Datasets." In this presentation, I will walk through the recent advancements in computer vision applied to road defect detection.
 
 ## 第二頁
 今天的報告主要分為七個部分。首先，我會介紹這項研究的背景與動機，以及目前遭遇的核心挑戰；接著會檢視主流的道路損害資料集及其局限性；隨後，我們會深入比較 One-stage 與 Two-stage 的模型架構方法；第四與第五部分會探討 YOLO 演進史與注意力機制的引入；最後，我會統整關鍵的研究發現，並提出未來的研究展望與結論。
@@ -12,8 +12,8 @@ Here is the outline of my presentation today.
 首先看到背景與動機。道路表面缺陷，像是坑洞或各類裂縫，不僅容易損壞車輛，更是導致重大交通事故的元凶。例如在馬來西亞，光是 2019 年就有超過 36 萬起相關交通事故。
 隨著先進駕駛輔助系統（也就是 ADAS）的普及，即時辨識這些路面危險，對於提供及時預警甚至觸發自動煞車來說至關重要。然而，目前的技術缺口在於：我們該如何在複雜變化的天候光影下，準確辨識微小且不規則的路面損壞，同時維持車載系統所必需的「即時推論速度」。
 
-so Let's look at the background and motivation first. Road defects are major contributors to vehicle wear-and-tear and severe traffic accidents. For instance, in Malaysia alone, over 364K accidents were recorded in 2019.
-And then As Advanced Driver-Assistance Systems—or ADAS—become mainstream, detecting these roadway hazards in real-time is crucial for enabling early driver warnings and automated emergency braking. However, the key research gap remains: how can we accurately detect small, irregular road damages under dynamic lighting conditions, while maintaining the high inference speed required for real-time safety?
+look at the background and motivation first. Road defects are major contributors to vehicle wear-and-tear and severe traffic accidents. For instance, in Malaysia alone, over 364K accidents were recorded in 2019.
+As Advanced Driver-Assistance Systems become mainstream, detecting these roadway hazards in real-time is crucial for enabling early driver warnings and automated emergency braking. However, the key research gap remains: how can we accurately detect small, irregular road damages under dynamic lighting conditions, while maintaining the high inference speed required for real-time safety
 
 ## 第四頁
 具體來說，即時道路損害偵測面臨三大核心難題：
@@ -21,10 +21,10 @@ And then As Advanced Driver-Assistance Systems—or ADAS—become mainstream, de
 第二是「環境變異」。例如陽光直射、樹蔭陰影，或是夜間雨天等極端氣候，都會嚴重干擾特徵提取，降低模型的信心度。
 第三是「小物件偵測」。遠處的坑洞或細小的橫縱向裂縫，在影像中往往只佔極少數像素，很容易淹沒在複雜粗糙的路面背景紋理中。
 
-Specifically, real-time road damage detection faces three fundamental challenges:
+Specifically, real-time road damage detection faces three Basic challenges:
 First, Accuracy versus Speed. Real-time ADAS requires high-FPS video processing without compromising the precision and reliability of the detection.
-Second, Environmental Variance. Harsh lighting shifts, tree shadows, rain, or nighttime conditions drastically lower the model's confidence.
-Third, Small Object Detection. Subtle cracks and distant potholes occupy very few pixels, making them easily lost in noisy asphalt textures and complex road backgrounds.
+Second, Environmental Variance. severe lighting shifts, tree shadows, rain, or night time conditions Violently lower the model's confidence.
+Third, Small Object Detection. tiny cracks and distant potholes occupy very few pixels, making them easily lost in noisy asphalt textures and complex road backgrounds.
 
 ## 第五頁
 為了訓練與評估模型，學界公開了多個基準資料集，但它們各自存在明顯的局限。
@@ -33,9 +33,8 @@ Third, Small Object Detection. Subtle cracks and distant potholes occupy very fe
 值得一提的是，目前只有 RDD 系列對人臉和車牌進行了模糊去識別化，其他多數資料集都還缺乏隱私保護措施。
 
 To train and benchmark these models, several public datasets have been developed, though each comes with certain limitations.
-The most prominent is the Road Damage Dataset (RDD) series. It evolved from RDD2018 with around 9,000 images, to RDD2020 with 21,000 images across three countries, and RDD2022 featuring over 47,000 images across six countries. Despite this growth, severe class imbalance remains a hurdle—particularly, hazardous potholes are heavily underrepresented compared to cracks. Furthermore, there is a clear daylight bias.
-Other datasets like UAV-PDD2023 offer high-resolution drone views but lack car-dashboard angles, while regional sets like Slovakia Potholes focus strictly on a single defect type.
-Lastly, it is worth noting that only the RDD benchmark provides privacy protection by blurring faces and license plates, which is absent in most other collections.
+The most famous is the Road Damage Dataset (RDD) series. It evolved from RDD2018 with around 9,000 images, to RDD2020 with 21,000 images across three countries, and RDD2022 featuring over 47,000 images across six countries. Despite this growth, severe class imbalance remains a hurdle.particularly, dangerous potholes are heavily underrepresented compared to cracks. Furthermore, there is a clear daylight bias.
+Other datasets like UAV-PDD2023 offer high-resolution drone views but lack car-dashboard angles, while regional sets like Slovakia Potholes focus on a single defect type.
 
 ## 第六頁
 了解資料集之後，我們需要合適的量化指標來衡量模型的好壞。
@@ -43,10 +42,10 @@ Lastly, it is worth noting that only the RDD benchmark provides privacy protecti
 第二個是 mAP（平均精確率），它用來全面評估模型在所有損害類別下的整體偵測與定位能力。
 第三個則是 FPS（每秒傳輸幀數），這代表推論速度，是檢驗演算法是否能在車載或邊緣端硬體上實現「即時偵測」的最直接標準。
 
-Moving on to Slide 6, we examine the core evaluation metrics used to assess model performance.
-The first key metric is the F1-Score. As mentioned earlier, road damage datasets suffer from severe class imbalance—normal road surfaces vastly outnumber defect areas. Setting a high confidence threshold might boost Precision, but it causes the model to miss subtle defects, lowering Recall. The F1-Score acts as the harmonic mean between the two, offering an unbiased and balanced evaluation.
+It show the core evaluation metrics used to assess model performance.
+The first key metric is the F1-Score. As mentioned earlier, road damage datasets suffer from severe class imbalance.normal road surfaces vastly outnumber defect areas. Setting a high confidence threshold might boost Precision, but it causes the model to miss subtle defects, lowering Recall. The F1-Score acts as the harmonic mean between the two, offering an unbiased and balanced evaluation.
 Next is mAP (Mean Average Precision), which serves as the gold standard for measuring comprehensive detection accuracy across all defect categories.
-Finally, we have FPS (Frames Per Second), which measures inference latency to ensure the architecture can run in true real-time on vehicular edge devices.
+Finally, we have FPS , which measures inference latency to ensure the architecture can run in true real-time on vehicular edge devices.
 
 ## 第七頁
 接著進入方法學架構的比較。在深度學習物件偵測中，主要可分為兩大流派：One-stage 與 Two-stage。
@@ -54,7 +53,7 @@ Finally, we have FPS (Frames Per Second), which measures inference latency to en
 相比之下，左邊的 One-stage 架構（如 SSD 與 YOLO）則是回歸型模型。它不需要額外的候選框生成步驟，而是在單次前向傳播中，直接從整張影像同時預測出邊界框位置、置信度以及類別機率。
 下方的整理表格清楚點出兩者的核心差異：Two-stage 精準度高但推論過慢，通常無法用於即時車載；而 One-stage 具備推論快速、輕量化的特性，更適合即時系統部署。
 
-Now, let's examine the methodology comparisons on Slide 7. In modern object detection, models are broadly divided into two paradigms: one-stage and two-stage detectors.
+In modern object detection, models are broadly divided into two paradigms: one-stage and two-stage detectors.
 On the right, we have Two-Stage Detectors, exemplified by Faster R-CNN. It utilizes a Region Proposal Network (RPN) to suggest potential bounding boxes first, followed by feature pooling and refinement. While this separation grants exceptional localization accuracy, it creates a heavy computational bottleneck.
 In contrast, One-Stage Detectors—such as SSD and YOLO on the left—treat detection as a straightforward regression problem. They skip the proposal generation and predict bounding box coordinates, confidence scores, and class probabilities simultaneously in a single forward pass.
 As summarized in the bottom table, while two-stage models excel in precision, their complexity makes them impractical for real-time safety. One-stage models offer the lightweight efficiency necessary for vehicular deployment.
