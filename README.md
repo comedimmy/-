@@ -1,7 +1,7 @@
 ## 第一頁
 大家好，我是吳易軒。今天我要向大家報告的主題是「即時道路損害偵測：方法與資料集的全面性文獻綜述」。這份報告主要回顧近年在車載與邊緣端運算中，電腦視覺如何應用於道路缺陷辨識的最新技術發展。
 
-Hello everyone. Today, I will presenting on the topic: "Real-Time Road Damage Detection: A Comprehensive Survey of Methodologies and Datasets." In this presentation, I will walk through the recent advancements in computer vision applied to road defect detection.
+Hello everyone. Today I will presenting on this topic: "Real-Time Road Damage Detection: A Comprehensive Survey of Methodologies and Datasets." In this presentation, I will walk through the recent advancements in computer vision applied to road defect detection.
 
 ## 第二頁
 今天的報告主要分為七個部分。首先，我會介紹這項研究的背景與動機，以及目前遭遇的核心挑戰；接著會檢視主流的道路損害資料集及其局限性；隨後，我們會深入比較 One-stage 與 Two-stage 的模型架構方法；第四與第五部分會探討 YOLO 演進史與注意力機制的引入；最後，我會統整關鍵的研究發現，並提出未來的研究展望與結論。
@@ -33,7 +33,7 @@ Third, Small Object Detection. tiny cracks and distant potholes occupy very few 
 值得一提的是，目前只有 RDD 系列對人臉和車牌進行了模糊去識別化，其他多數資料集都還缺乏隱私保護措施。
 
 To train and benchmark these models, several public datasets have been developed, though each comes with certain limitations.
-The most famous is the Road Damage Dataset (RDD) series. It evolved from RDD2018 with around 9,000 images, to RDD2020 with 21,000 images across three countries, and RDD2022 featuring over 47,000 images across six countries. Despite this growth, severe class imbalance remains a hurdle.particularly, dangerous potholes are heavily underrepresented compared to cracks. Furthermore, there is a clear daylight bias.
+The most famous is the Road Damage Dataset series. It evolved from RDD2018 with around 9,000 images, RDD2020 with 21,000 images across three countries, and RDD2022 Include over 47,000 images across six countries. Despite this growth, severe class imbalance remains a hurdle.particularly, dangerous potholes are heavily underrepresented compared to cracks. Furthermore, there is a clear daylight bias.
 Other datasets like UAV-PDD2023 offer high-resolution drone views but lack car-dashboard angles, while regional sets like Slovakia Potholes focus on a single defect type.
 
 ## 第六頁
@@ -64,7 +64,7 @@ the author was summarized them in the bottom table, while two-stage models excel
 反觀 YOLO 系列，YOLOv2 在相近甚至更好的準確率下，推論速度能飆升到 40 到 91 FPS，完全超越即時門檻。
 再看到右邊 COCO 資料集的對比，SSD 雖然速度不錯，但對小物件特徵的捕捉較弱；而 YOLOv3 則展現了極佳的多尺度特徵平衡。因此本篇 Survey 的核心結論之一就是：YOLO 系列在精準度與即時性之間取得最理想的折衷平衡，是車載 ADAS 的首選架構。
 
-Turning to Slide 8, here are the empirical benchmarks supporting this comparison.
+here are the empirical benchmarks supporting this comparison.
 If you look at the Pascal VOC 2007 table on the left, Faster R-CNN achieves impressive mAP scores between 73% and 76%, but its inference speed hovers at merely 5 to 7 FPS. This creates an intolerable latency for moving vehicles.
 In stark contrast, YOLOv2 achieves comparable detection accuracy while surging to speeds between 40 and 91 FPS, comfortably exceeding real-time requirements.
 Looking at the COCO benchmark on the right, while SSD performs decently, it struggles with fine-grained small objects, whereas YOLOv3 balances multi-scale features much more effectively. Thus, the empirical takeaway is clear: the YOLO family delivers the optimal trade-off between speed and accuracy for ADAS deployment.
@@ -95,10 +95,10 @@ In recent releases—namely YOLOv10, v11, and v12—the designs leverage rank-gu
 第一是 CBAM（卷積塊注意力模組），它沿著通道與空間兩個維度依序推導注意力圖，能主動強化關鍵缺陷特徵。
 第二是 Coordinate Attention（座標注意力），它將空間資訊分解為水平與垂直兩個一維特徵進行追蹤，在幾乎不增加運算負擔的前提下保留精確的空間位置資訊。
 這類注意力機制的整體效益在於能有效抑制粗糙瀝青的背景噪聲，讓原本輕巧的 One-stage 偵測器在細小裂縫上的檢出率大幅提升。
-
-Turning to Slide 11, we address the challenge of subtle, small defect identification by integrating Attention Mechanisms.
-Two widely adopted modules in recent literature are:
-First, CBAM (Convolutional Block Attention Module), which sequentially infers attention maps along channel and spatial dimensions to emphasize critical defect regions.
+Although YOLO is extremely fast, as mentioned earlier
+they are address the challenge of subtle, small defect identification by integrating Attention Mechanisms.
+Two widely adopted modules in recent literature are CBAM and Coordinate Attention
+First,(Convolutional Block Attention Module), which sequentially infers attention maps along channel and spatial dimensions to emphasize critical defect regions.
 Second, Coordinate Attention (CA), which captures direction-aware and position-sensitive information across horizontal and vertical axes without introducing significant computational overhead.
 The overall impact is that these modules suppress complex asphalt background noise, empowering lightweight one-stage detectors to capture tiny cracks with high precision.
 
@@ -123,9 +123,10 @@ This demonstrates that a single YOLO variant augmented with lightweight attentio
 最後是「損傷嚴重度分級」，研究不應僅停留在二元偵測，更需邁向嚴重程度的精細評估，才能進一步支援動態車輛避障與養護通報排程。
 
 the final slide is Conclusion & Future Directions
-author conclude our survey findings:
-First, regarding our Architecture Verdict, single-stage YOLO models integrated with lightweight attention mechanisms offer the optimal trade-off between localization precision and high-speed throughput for advancing ADAS.
-Second, on Dataset Status, while benchmarks like RDD have accelerated progress, critical limitations remain, specifically severe class imbalance (the scarcity of potholes) and a shortage of adverse-weather annotations.   To address these gaps, three future directions are outlined on the right:
-First, Environmental Robustness, which can be tackled through weather-simulation data augmentation, HDR imaging, and infrared vision.
+author conclude the survey findings:
+First, regarding the Architecture Verdict, single-stage YOLO models integrated with lightweight attention mechanisms offer the optimal trade-off between localization precision and high-speed throughput for advancing ADAS.
+Second, on Dataset Status, Although RDD has driven the development of the field, critical limitations remain, specifically severe class imbalance and a shortage of adverse-weather data.To address these gaps, three future directions are outlined on the right:
+First, Environmental Robustness, which can be  through weather-simulation data augmentation, HDR imaging, and infrared vision.
 Second, Multi-Sensor Fusion, combining optical cameras with LiDAR, radar, and thermal sensors to achieve resilient 3D spatial awareness.
-Third, transitioning toward Damage Severity Classification, moving beyond binary detection into multi-level risk ranking to inform dynamic vehicle avoidance maneuvers and prioritized road maintenance.   That concludes my presentation. 
+Third, transitioning toward Damage Severity Classification, moving beyond binary detection into multi-level risk ranking.
+thanks for your Listening
