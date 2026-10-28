@@ -87,7 +87,7 @@ By evolving from rigid anchor boxes to anchor-free heads and Path Aggregation Ne
 
 we observe the evolutionary leap across the YOLO family architectures.
 Starting from YOLOv3 with Darknet-53, which Achieved 33% mAP at 20 FPS , intermediate models like YOLOv5 and YOLOv8 introduced dynamic anchors, Mosaic data augmentation, C2F modules, and SPPF pooling layers, pushing mAP past 50% while scaling frame rates to hundreds of FPS.
-In recent releases—namely YOLOv10, v11, and v12—the designs leverage rank-guided spatial-channel decoupling, C3k2 and C2PSA blocks, and RepVGG-style re-parameterization with adaptive label assignment. As a result, YOLOv12m achieves an mAP of 52.5% at 206 FPS with only 20.2 million parameters, providing a robust baseline for low-latency automotive edge deployment.
+In recent releases—namely YOLOv10, v11, and v12—the designs leverage rank-guided spatial-channel decoupling, C3k2 and C2PSA blocks.As a result, YOLOv12m achieves an mAP of 52.5% at 206 FPS with only 20.2 million parameters, providing a robust baseline for low-latency automotive edge deployment.
 
 ## 第十一頁
 儘管 YOLO 速度飛快，但前面提過，道路瑕疵通常極微小，容易被背景路面紋理淹沒。為了解決這個瓶頸，近年研究大量結合了「注意力機制」。
